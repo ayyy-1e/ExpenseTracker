@@ -17,14 +17,27 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
+
+        double total = expenseRepository.findAll()
+                .stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+
         model.addAttribute("expenses", expenseRepository.findAll());
         model.addAttribute("expense", new Expense());
+        model.addAttribute("total", total);
         return "index";
     }
 
     @PostMapping("/add")
     public String addExpense(@ModelAttribute Expense expense) {
         expenseRepository.save(expense);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteExpense(@PathVariable Long id) {
+        expenseRepository.deleteById(id);
         return "redirect:/";
     }
 }

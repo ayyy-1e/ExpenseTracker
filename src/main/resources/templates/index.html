@@ -38,9 +38,16 @@
     <tr th:each="expense : ${expenses}">
         <td th:text="${expense.name}"></td>
         <td th:text="${expense.amount}"></td>
+        <td>
+            <form th:action="@{/delete/{id}(id=${expense.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
     </tr>
 
 </table>
+
+<h3>Total Expense: <span th:text="${total}"></span></h3>
 
 </body>
 </html>
