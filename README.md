@@ -5,8 +5,8 @@
 * [Overview](#overview)
 * [Features](#features)
 * [Technologies Used](#technologies-used)
-* [Database](#database)
 * [Project Structure](#project-structure)
+* [Database Structure](#database-structure)
 * [How to Run Locally](#how-to-run-locally)
 * [Deployment](#deployment)
 * [References](#references)
@@ -36,17 +36,43 @@ And all data is stored in a PostgreSQL database.
 * PostgreSQL : The database used to store expenses records.
 * Gradle : Used to manage dependencies and run the Spring Boot application.
 
-## Database
+## Project Structure
+
+```
+expense-tracker
+│
+├── src/main/java/com/example/expensetracker
+│   ├── controller
+│   │   └── HomeController.java
+│   │
+│   ├── model
+│   │   └── Expense.java
+│   │
+│   └── repository
+│       └── ExpenseRepository.java
+│
+├── src/main/resources
+│   ├── templates
+│   │   └── index.html
+│   │
+│   └── application.properties
+│
+├── build.gradle
+└── README.md
+```
+
+## Database Structure
 
 The application uses PostgreSQL to store expenses.
 
 Table: **expense**
 
-Fields:
-
+Fields included :
 * id (Primary Key)
 * name
 * amount
+
+<img width="1280" height="800" alt="Database_structure" src="https://github.com/user-attachments/assets/96f52431-dd2d-4af7-9fbd-ab56458b9596" />
 
 ## How to Run Locally
 
@@ -74,31 +100,6 @@ spring.datasource.password=YOUR_PASSWORD
 http://localhost:8080
 ```
 
-## Project Structure
-
-```
-expense-tracker
-│
-├── src/main/java/com/example/expensetracker
-│   ├── controller
-│   │   └── HomeController.java
-│   │
-│   ├── model
-│   │   └── Expense.java
-│   │
-│   └── repository
-│       └── ExpenseRepository.java
-│
-├── src/main/resources
-│   ├── templates
-│   │   └── index.html
-│   │
-│   └── application.properties
-│
-├── build.gradle
-└── README.md
-```
-
 ## Deployment
 
 The application is deployed using Railway.
@@ -113,8 +114,18 @@ ___
 * [Spring Data JPA Documentation](https://spring.io/projects/spring-data-jpa)
 * [Thymeleaf Documentation](https://www.thymeleaf.org/documentation.html)
 * [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-* [Railway Deployment Guide]
+* [Railway Deployment Guide](https://www.youtube.com/watch?v=Q_Hr4KK8tsQ&authuser=0)
 
+## AI Usage Declaration
+
+**AI Usage**: This project was created with guidance from AI assistants for:
+* Code structure and architecture recommendations
+* UI/UX layout suggestions
+* Debugging errors
+* Project structure and UI enhancement
+* Deployment preparation and documentation formatting
+
+**No AI Code Generation**: All code was written by human, with AI providing architectural guidance only.
 
 
 
