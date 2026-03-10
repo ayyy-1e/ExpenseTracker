@@ -25,7 +25,6 @@ And all data is stored in a PostgreSQL database.
 * Delete expense
 * View all expenses
 * Automatic total expense calculation
-* Data persistence using PostgreSQL
 
 ## Technologies Used
 
