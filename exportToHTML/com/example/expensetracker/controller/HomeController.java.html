@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>HomeController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+HomeController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">expensetracker</span><span class="s2">.</span><span class="s1">controller</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">expensetracker</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Expense</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">expensetracker</span><span class="s2">.</span><span class="s1">repository</span><span class="s2">.</span><span class="s1">ExpenseRepository</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">stereotype</span><span class="s2">.</span><span class="s1">Controller</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Model</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">bind</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.*;</span>
+
+<span class="s1">@Controller</span>
+<span class="s0">public class </span><span class="s1">HomeController </span><span class="s2">{</span>
+
+    <span class="s0">private final </span><span class="s1">ExpenseRepository expenseRepository</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">HomeController</span><span class="s2">(</span><span class="s1">ExpenseRepository expenseRepository</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">expenseRepository </span><span class="s2">= </span><span class="s1">expenseRepository</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String home</span><span class="s2">(</span><span class="s1">Model model</span><span class="s2">) {</span>
+
+        <span class="s0">double </span><span class="s1">total </span><span class="s2">= </span><span class="s1">expenseRepository</span><span class="s2">.</span><span class="s1">findAll</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">mapToDouble</span><span class="s2">(</span><span class="s1">Expense::getAmount</span><span class="s2">)</span>
+                <span class="s2">.</span><span class="s1">sum</span><span class="s2">();</span>
+
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;expenses&quot;</span><span class="s2">, </span><span class="s1">expenseRepository</span><span class="s2">.</span><span class="s1">findAll</span><span class="s2">());</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;expense&quot;</span><span class="s2">, </span><span class="s0">new </span><span class="s1">Expense</span><span class="s2">());</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;total&quot;</span><span class="s2">, </span><span class="s1">total</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s3">&quot;index&quot;</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@PostMapping</span><span class="s2">(</span><span class="s3">&quot;/add&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String addExpense</span><span class="s2">(</span><span class="s1">@ModelAttribute Expense expense</span><span class="s2">) {</span>
+        <span class="s1">expenseRepository</span><span class="s2">.</span><span class="s1">save</span><span class="s2">(</span><span class="s1">expense</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s3">&quot;redirect:/&quot;</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@PostMapping</span><span class="s2">(</span><span class="s3">&quot;/delete/{id}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String deleteExpense</span><span class="s2">(</span><span class="s1">@PathVariable Long id</span><span class="s2">) {</span>
+        <span class="s1">expenseRepository</span><span class="s2">.</span><span class="s1">deleteById</span><span class="s2">(</span><span class="s1">id</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s3">&quot;redirect:/&quot;</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>
