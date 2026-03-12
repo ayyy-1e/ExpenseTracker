@@ -25,7 +25,6 @@ And all data is stored in a PostgreSQL database.
 * Delete expense
 * View all expenses
 * Automatic total expense calculation
-* Data persistence using PostgreSQL
 
 ## Technologies Used
 
@@ -104,7 +103,7 @@ http://localhost:8080
 
 The application is deployed using Railway.
 
-Deployment link:
+Deployment Link : [Expense Tracker webApp](https://expensetracker-production-3879.up.railway.app/)
 
 ___
 
